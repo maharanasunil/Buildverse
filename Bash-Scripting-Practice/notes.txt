@@ -1,0 +1,23 @@
+1) If i have log files and i want to extract data based on fatality
+Command => grep "<specify the word on the basis of which you need to filter>" system.log
+
+2) As scenario where i have to fetch only those files which have .log extension which were recently updated.
+Command => find . -name "*.log" -mtime -1
+find -> will find the files
+. -> current directory
+-name "*.log" -> all the file names with .log extension
+-mtime -1 -> updated 1 day ago
+
+3) Give executabel permission to our shell script
+Command => chmod +x <file_name.sh>
+chmod -> changes file permissions
++x -> adds execute permission
+
+4) Assign Variable => dir_name="/users/app/sunil"
+Note: There should not be any spaces betwwen variable name and the value
+
+5) To access variables => $<variable_name>
+
+6) Arrays in Shell Script => array_name = ["text1" "text2" "text3"] 
+Note: we have spaces here instead of comma
+To access the array => "${array_name[index]}"
