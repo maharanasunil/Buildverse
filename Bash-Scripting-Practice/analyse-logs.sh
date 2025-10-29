@@ -12,21 +12,25 @@ echo -e "\nList of log files updated in last 24 hours"
 LOG_FILES=$(find $LOG_DIR -name "*.log" -mtime -1) # Syntax for command substitution
 echo $LOG_FILES
 
-echo -e "\nSearching ERROR log in application.log"
-grep "${ERROR_PATTERNS[0]}" "$LOG_DIR/$APP_LOG_FILE"
 
-echo -e "\nNumber of ERROR logs found in application.log"
-grep -c "${ERROR_PATTERNS[0]}" "$LOG_DIR/$APP_LOG_FILE"
-echo -e "\nNumber of FATAL logs found in application.log"
-grep -c "${ERROR_PATTERNS[1]}" "$LOG_DIR/$APP_LOG_FILE"
+for LOG_FILE in $LOG_FILES; do
+    echo -e "\n"
+    echo "==========================================="
+    echo "$LOG_FILE"
+    echo "==========================================="
+    for PATTERN in ${ERROR_PATTERNS[@]}; do 
+    # [@] => Array subscript - meaning each element remains in separate entity
+    # ${ERROR_PATTERNS[*]} => How to iterate through array elements. Meaning expand all elements into one big string
+    # ${ERROR_PATTERNS[@]} => Expands each element as a separate word
 
-echo -e "\nNumber of FATAL logs found in system.log"
-grep -c "${ERROR_PATTERNS[1]}" "$LOG_DIR/$SYS_LOG_FILE" 
-echo -e "\nNumber of CRITICAL logs found in system.log"
-grep -c "${ERROR_PATTERNS[2]}" "$LOG_DIR/$SYS_LOG_FILE" 
+        echo -e "\nSearching $PATTERN log in $LOG_FILE file"
+        grep "$PATTERN" "$LOG_FILE" #$LOG_DIR/$APP_LOG_FILE -> We dont need to pass this as the for loop witll pick up each file name
 
-echo -e "\nSearching CRITICAL log in system.log"
-grep "${ERROR_PATTERNS[2]}" "$LOG_DIR/$SYS_LOG_FILE" 
+        echo -e "\nNumber of $PATTERN logs found in $LOG_FILE file"
+        grep -c "$PATTERN" "$LOG_FILE"
+
+    done
+done
 
 echo -e "\n==========================================="
 echo "          END OF REPORT"
