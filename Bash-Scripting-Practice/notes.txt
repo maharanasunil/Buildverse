@@ -21,3 +21,29 @@ Note: There should not be any spaces betwwen variable name and the value
 6) Arrays in Shell Script => array_name = ["text1" "text2" "text3"] 
 Note: we have spaces here instead of comma
 To access the array => "${array_name[index]}"
+
+7) For Loops => 
+for <loop variable> in $<array>; do
+-------tasks to do--------
+done
+
+[@] => Array subscript - meaning each element remains in separate entity
+${ERROR_PATTERNS[*]} => How to iterate through array elements. Meaning expand all elements into one big string
+${ERROR_PATTERNS[@]} => Expands each element as a separate word
+
+8) For writing contents into a file =>
+- create a vriable with the destination location file
+- after the echo command add "> $<destination path variable name>"
+- > and >> are redirection operatorsused to send output to a file instead of displaying it on the terminal.
+- > will overwrite the previous content everytime the command is executed and >> appends every new output to the existing file content
+
+9) Conditional Keywords =>
+if ["$<variable> -gt/lt <number>"]; then
+    echo --------
+fi
+
+if - starts the Conditional
+then - runs if the condition is true
+else - runs if condition is false
+elif - for multiple conditions
+fi - closes the if block (like an end statement)
